@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无相布施吉祥码生成器</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f9f9f9; margin: 0; padding: 20px; box-sizing: border-box; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        h2 { color: #333; margin-bottom: 20px; font-size: 20px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px; text-align: center; letter-spacing: 2px; }
+        button { width: 100%; padding: 12px; background-color: #07c160; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #06ad56; }
+        .result-box { margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px; word-break: break-all; font-size: 18px; color: #333; display: none; font-weight: bold; letter-spacing: 1px; }
+        .tip { margin-top: 10px; font-size: 14px; color: #666; display: none; }
+        .desc { font-size: 12px; color: #999; margin-bottom: 15px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🙏 无相布施吉祥码</h2>
+        <p class="desc">输入身份证后3位（X请用0替代），系统将生成包含AMTF的专属吉祥码。<br>您的数字将被打乱并隐藏于其中，护持您的无相布施。</p>
+        
+        <input type="text" id="idSuffix" maxlength="3" placeholder="请输入身份证后三位" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
+        <button onclick="generateCode()">生成并复制吉祥码</button>
+        
+        <div id="resultBox" class="result-box"></div>
+        <div id="tip" class="tip">✅ 已自动复制到剪贴板，请前往微信粘贴发送给自己保存备用</div>
+    </div>
+
+    <script>
+        function generateCode() {
+            const suffix = document.getElementById('idSuffix').value.trim().toUpperCase();
+            const resultBox = document.getElementById('resultBox');
+            const tip = document.getElementById('tip');
+
+            // 1. 校验输入
+            if (suffix.length !== 3) {
+                alert("请输入准确的3位字符（数字或X）！");
+                return;
+            }
+
+            // 2. 生成3位随机数字
+            let randomNums = '';
+            for (let i = 0; i < 3; i++) {
+                randomNums += Math.floor(Math.random() * 10);
+            }
+
+            // 3. 将用户输入的3位尾号顺序随机打乱
+            let suffixArray = suffix.split('');
+            for (let i = suffixArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [suffixArray[i], suffixArray[j]] = [suffixArray[j], suffixArray[i]];
+            }
+            const shuffledSuffix = suffixArray.join('');
+
+            // 4. 拼接6位数字，并随机镶嵌在 A, M, T, F 四个字母中
+            // 将6位数字分成4组，分别插入到4个字母的前后或中间
+            const allNums = randomNums + shuffledSuffix; // 6位纯数字
+            const letters = ['A', 'M', 'T', 'F'];
+            
+            // 随机决定6个数字在4个字母间的分布方式
+            // 例如：将6个球放入4个盒子，每个盒子可以为空
+            let distribution = [0, 0, 0, 0];
+            for (let i = 0; i < 6; i++) {
+                let box = Math.floor(Math.random() * 4);
+                distribution[box]++;
+            }
+
+            let finalStr = '';
+            let numIndex = 0;
+            for (let i = 0; i < 4; i++) {
+                // 在当前字母前插入分配到的数字
+                for (let j = 0; j < distribution[i]; j++) {
+                    finalStr += allNums[numIndex++];
+                }
+                finalStr += letters[i];
+            }
+            // 如果还有剩余数字（虽然上面的算法保证了刚好分完，但以防万一）
+            while (numIndex < 6) {
+                finalStr += allNums[numIndex++];
+            }
+
+            // 5. 拼接最终代码
+            const finalCode = `无相布施者${finalStr}`;
+            
+            // 6. 显示结果
+            resultBox.textContent = finalCode;
+            resultBox.style.display = 'block';
+            tip.style.display = 'none'; // 每次生成时重置提示
+
+            // 7. 自动复制到剪贴板
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(finalCode).then(() => {
+                    tip.style.display = 'block';
+                }).catch(err => {
+                    alert('自动复制失败，请长按上方代码手动复制');
+                });
+            } else {
+                alert('当前浏览器不支持自动复制，请长按上方代码手动复制');
+            }
+        }
+    </script>
+</body>
+</html>
