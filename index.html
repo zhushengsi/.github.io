@@ -3,310 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>无相布施吉祥码生成器</title>
+    <title>无相布施吉祥码与功德测算</title>
     <style>
         :root {
-            --primary-color: #d35400; /* 佛教常用的赭石色/袈裟色 */
+            --primary-color: #d35400; /* 佛教常用的赭石色 */
+            --btn-color: #07c160;     /* 微信绿 */
             --bg-color: #fdfbf7;      /* 仿宣纸色 */
-            --text-color: #333;
-            --border-radius: 12px;
+            --card-bg: #ffffff;
         }
 
         body {
             font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             margin: 0;
             padding: 20px;
-            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background: var(--card-bg);
             width: 100%;
             max-width: 450px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+
+        .header {
             text-align: center;
-            border: 1px solid #eee;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-weight: normal;
-            letter-spacing: 2px;
-        }
-
-        /* 吉祥码区域 */
-        .code-display {
-            background: #fff8f0;
-            border: 2px dashed var(--primary-color);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .seed-char {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            display: block;
-            margin: 10px 0;
-            font-family: "Times New Roman", serif; /* 模拟梵文衬线感 */
-        }
-
-        .copy-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: opacity 0.2s;
-        }
-
-        .copy-btn:hover {
-            opacity: 0.9;
-        }
-
-        .copy-hint {
-            font-size: 0.8rem;
-            color: green;
-            height: 1.2em;
-            margin-top: 5px;
-            visibility: hidden;
-        }
-
-        /* 捐款互动区域 */
-        .donation-section {
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-
-        .range-selector {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+            padding: 20px 20px 10px;
+            border-bottom: 1px solid #eee;
             margin-bottom: 20px;
         }
 
-        .range-btn {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .range-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .result-box {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: none; /* 默认隐藏 */
-        }
-
-        .random-amount {
-            font-size: 2rem;
-            color: #d35400;
-            font-weight: bold;
-        }
-
-        .average-suggestion {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .action-area button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .btn-generate {
-            background-color: #333;
-            color: white;
-        }
-
-        .btn-retry {
-            background-color: #e67e22;
-            color: white;
-        }
-
-        .btn-final {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .chances-left {
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 5px;
-        }
-
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>无相布施 · 吉祥码</h1>
-
-    <!-- 第一部分：吉祥码生成 -->
-    <div class="code-display">
-        <div style="font-size: 0.9rem; color: #666;">您的专属种子字</div>
-        <span class="seed-char" id="seedChar">唵</span>
-        <button class="copy-btn" onclick="generateAndCopy()">生成并复制吉祥码</button>
-        <div class="copy-hint" id="copyHint">已复制到剪贴板</div>
-    </div>
-
-    <!-- 第二部分：随缘捐款计算器 -->
-    <div class="donation-section">
-        <h3 style="margin-top:0; font-size:1rem; color:#555;">随缘乐助测算</h3>
-
-        <!-- 步骤1：选择范围 -->
-        <div class="range-selector" id="rangeSelector">
-            <button class="range-btn" onclick="selectRange(1, 10, this)">小额<br>(1-10元)</button>
-            <button class="range-btn active" onclick="selectRange(10, 50, this)">中额<br>(10-50元)</button>
-            <button class="range-btn" onclick="selectRange(50, 100, this)">大额<br>(50-100元)</button>
-        </div>
-
-        <!-- 步骤2：显示结果 -->
-        <div class="result-box" id="resultBox">
-            <div>本次缘分金额：</div>
-            <div class="random-amount" id="currentAmount">¥ 0.00</div>
-            <div class="average-suggestion" id="avgSuggestion"></div>
-        </div>
-
-        <!-- 步骤3：操作按钮 -->
-        <div class="action-area">
-            <button id="mainBtn" class="btn-generate" onclick="calculateDonation()">测算功德金额</button>
-            <div class="chances-left" id="chanceText"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // --- 吉祥码逻辑 ---
-    const seeds = ["唵", "阿", "吽", "嗡", "嘛", "呢", "叭", "咪"];
-
-    function generateAndCopy() {
-        // 随机选一个字
-        const char = seeds[Math.floor(Math.random() * seeds.length)];
-        const code = `【无相布施】今日吉祥种子字：${char} (Om)`;
-
-        // 更新显示
-        document.getElementById('seedChar').innerText = char;
-
-        // 复制到剪贴板
-        navigator.clipboard.writeText(code).then(() => {
-            const hint = document.getElementById('copyHint');
-            hint.style.visibility = 'visible';
-            setTimeout(() => { hint.style.visibility = 'hidden'; }, 2000);
-        }).catch(err => {
-            console.error('复制失败', err);
-            alert("复制失败，请手动复制：" + code);
-        });
-    }
-
-    // --- 捐款逻辑 ---
-    let currentMin = 10;
-    let currentMax = 50;
-    let attempts = 0;
-    const maxAttempts = 3;
-    let historyAmounts = [];
-
-    // 初始化默认选中
-    window.onload = function() {
-        // 默认选中中间那个
-        selectRange(10, 50, document.querySelectorAll('.range-btn')[1]);
-    };
-
-    function selectRange(min, max, btnElement) {
-        // 如果已经开始测算（attempts > 0），禁止切换范围，防止逻辑混乱
-        if (attempts > 0 && attempts < 3) {
-            alert("请先完成当前的测算流程哦");
-            return;
-        }
-
-        currentMin = min;
-        currentMax = max;
-
-        // 更新按钮样式
-        document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-
-        // 重置状态
-        resetDonationState();
-    }
-
-    function resetDonationState() {
-        attempts = 0;
-        historyAmounts = [];
-        document.getElementById('resultBox').style.display = 'none';
-        document.getElementById('mainBtn').innerText = "测算功德金额";
-        document.getElementById('mainBtn').className = "btn-generate";
-        document.getElementById('chanceText').innerText = "";
-        document.getElementById('avgSuggestion').innerText = "";
-    }
-
-    function calculateDonation() {
-        // 生成随机数 (保留两位小数)
-        const randomVal = (Math.random() * (currentMax - currentMin) + currentMin).toFixed(2);
-        historyAmounts.push(parseFloat(randomVal));
-        attempts++;
-
-        // 显示结果区域
-        const resultBox = document.getElementById('resultBox');
-        resultBox.style.display = 'block';
-        document.getElementById('currentAmount').innerText = "¥ " + randomVal;
-
-        // 计算平均值
-        const sum = historyAmounts.reduce((a, b) => a + b, 0);
-        const avg = (sum / historyAmounts.length).toFixed(2);
-        document.getElementById('avgSuggestion').innerText = `历史均值参考：¥ ${avg}`;
-
-        const btn = document.getElementById('mainBtn');
-        const chanceText = document.getElementById('chanceText');
-
-        // 逻辑判断：是否还有下次机会？
-        if (attempts < maxAttempts) {
-            btn.innerText = "不满意？再算一次";
-            btn.className = "btn-retry";
-            chanceText.innerText = `您还可以重选 ${maxAttempts - attempts} 次`;
-        } else {
-            // 第三次，终止
-            btn.innerText = "确认此金额并捐款";
-            btn.className = "btn-final";
-            chanceText.innerText = "缘分已定，功德无量";
-            // 此时可以禁用范围选择，防止干扰
-            document.getElementById('rangeSelector').style.pointerEvents = 'none';
-            document.getElementById('rangeSelector').style.opacity = '0.5';
-        }
-    }
-</script>
-
-</body>
-</html>
+        h2 { margin: 0; font-size: 20px
