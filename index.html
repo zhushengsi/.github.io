@@ -5,101 +5,308 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>无相布施吉祥码生成器</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f9f9f9; margin: 0; padding: 20px; box-sizing: border-box; }
-        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h2 { color: #333; margin-bottom: 20px; font-size: 20px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px; text-align: center; letter-spacing: 2px; }
-        button { width: 100%; padding: 12px; background-color: #07c160; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
-        button:hover { background-color: #06ad56; }
-        .result-box { margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px; word-break: break-all; font-size: 18px; color: #333; display: none; font-weight: bold; letter-spacing: 1px; }
-        .tip { margin-top: 10px; font-size: 14px; color: #666; display: none; }
-        .desc { font-size: 12px; color: #999; margin-bottom: 15px; line-height: 1.5; }
+        :root {
+            --primary-color: #d35400; /* 佛教常用的赭石色/袈裟色 */
+            --bg-color: #fdfbf7;      /* 仿宣纸色 */
+            --text-color: #333;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        /* 吉祥码区域 */
+        .code-display {
+            background: #fff8f0;
+            border: 2px dashed var(--primary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .seed-char {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin: 10px 0;
+            font-family: "Times New Roman", serif; /* 模拟梵文衬线感 */
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .copy-hint {
+            font-size: 0.8rem;
+            color: green;
+            height: 1.2em;
+            margin-top: 5px;
+            visibility: hidden;
+        }
+
+        /* 捐款互动区域 */
+        .donation-section {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .range-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .range-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .range-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .result-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none; /* 默认隐藏 */
+        }
+
+        .random-amount {
+            font-size: 2rem;
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        .average-suggestion {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .action-area button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-generate {
+            background-color: #333;
+            color: white;
+        }
+
+        .btn-retry {
+            background-color: #e67e22;
+            color: white;
+        }
+
+        .btn-final {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .chances-left {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>🙏 无相布施吉祥码</h2>
-        <p class="desc">输入身份证后3位（X请用0替代），系统将生成包含AMTF的专属吉祥码。<br>您的数字将被打乱并隐藏于其中，护持您的无相布施。</p>
-        
-        <input type="text" id="idSuffix" maxlength="3" placeholder="请输入身份证后三位" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
-        <button onclick="generateCode()">生成并复制吉祥码</button>
-        
-        <div id="resultBox" class="result-box"></div>
-        <div id="tip" class="tip">✅ 已自动复制到剪贴板，请前往微信粘贴发送给自己保存备用</div>
+
+<div class="container">
+    <h1>无相布施 · 吉祥码</h1>
+
+    <!-- 第一部分：吉祥码生成 -->
+    <div class="code-display">
+        <div style="font-size: 0.9rem; color: #666;">您的专属种子字</div>
+        <span class="seed-char" id="seedChar">唵</span>
+        <button class="copy-btn" onclick="generateAndCopy()">生成并复制吉祥码</button>
+        <div class="copy-hint" id="copyHint">已复制到剪贴板</div>
     </div>
 
-    <script>
-        function generateCode() {
-            const suffix = document.getElementById('idSuffix').value.trim().toUpperCase();
-            const resultBox = document.getElementById('resultBox');
-            const tip = document.getElementById('tip');
+    <!-- 第二部分：随缘捐款计算器 -->
+    <div class="donation-section">
+        <h3 style="margin-top:0; font-size:1rem; color:#555;">随缘乐助测算</h3>
 
-            // 1. 校验输入
-            if (suffix.length !== 3) {
-                alert("请输入准确的3位字符（数字或X）！");
-                return;
-            }
+        <!-- 步骤1：选择范围 -->
+        <div class="range-selector" id="rangeSelector">
+            <button class="range-btn" onclick="selectRange(1, 10, this)">小额<br>(1-10元)</button>
+            <button class="range-btn active" onclick="selectRange(10, 50, this)">中额<br>(10-50元)</button>
+            <button class="range-btn" onclick="selectRange(50, 100, this)">大额<br>(50-100元)</button>
+        </div>
 
-            // 2. 生成3位随机数字
-            let randomNums = '';
-            for (let i = 0; i < 3; i++) {
-                randomNums += Math.floor(Math.random() * 10);
-            }
+        <!-- 步骤2：显示结果 -->
+        <div class="result-box" id="resultBox">
+            <div>本次缘分金额：</div>
+            <div class="random-amount" id="currentAmount">¥ 0.00</div>
+            <div class="average-suggestion" id="avgSuggestion"></div>
+        </div>
 
-            // 3. 将用户输入的3位尾号顺序随机打乱
-            let suffixArray = suffix.split('');
-            for (let i = suffixArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [suffixArray[i], suffixArray[j]] = [suffixArray[j], suffixArray[i]];
-            }
-            const shuffledSuffix = suffixArray.join('');
+        <!-- 步骤3：操作按钮 -->
+        <div class="action-area">
+            <button id="mainBtn" class="btn-generate" onclick="calculateDonation()">测算功德金额</button>
+            <div class="chances-left" id="chanceText"></div>
+        </div>
+    </div>
+</div>
 
-            // 4. 拼接6位数字，并随机镶嵌在 A, M, T, F 四个字母中
-            // 将6位数字分成4组，分别插入到4个字母的前后或中间
-            const allNums = randomNums + shuffledSuffix; // 6位纯数字
-            const letters = ['A', 'M', 'T', 'F'];
-            
-            // 随机决定6个数字在4个字母间的分布方式
-            // 例如：将6个球放入4个盒子，每个盒子可以为空
-            let distribution = [0, 0, 0, 0];
-            for (let i = 0; i < 6; i++) {
-                let box = Math.floor(Math.random() * 4);
-                distribution[box]++;
-            }
+<script>
+    // --- 吉祥码逻辑 ---
+    const seeds = ["唵", "阿", "吽", "嗡", "嘛", "呢", "叭", "咪"];
 
-            let finalStr = '';
-            let numIndex = 0;
-            for (let i = 0; i < 4; i++) {
-                // 在当前字母前插入分配到的数字
-                for (let j = 0; j < distribution[i]; j++) {
-                    finalStr += allNums[numIndex++];
-                }
-                finalStr += letters[i];
-            }
-            // 如果还有剩余数字（虽然上面的算法保证了刚好分完，但以防万一）
-            while (numIndex < 6) {
-                finalStr += allNums[numIndex++];
-            }
+    function generateAndCopy() {
+        // 随机选一个字
+        const char = seeds[Math.floor(Math.random() * seeds.length)];
+        const code = `【无相布施】今日吉祥种子字：${char} (Om)`;
 
-            // 5. 拼接最终代码
-            const finalCode = `无相布施者${finalStr}`;
-            
-            // 6. 显示结果
-            resultBox.textContent = finalCode;
-            resultBox.style.display = 'block';
-            tip.style.display = 'none'; // 每次生成时重置提示
+        // 更新显示
+        document.getElementById('seedChar').innerText = char;
 
-            // 7. 自动复制到剪贴板
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(finalCode).then(() => {
-                    tip.style.display = 'block';
-                }).catch(err => {
-                    alert('自动复制失败，请长按上方代码手动复制');
-                });
-            } else {
-                alert('当前浏览器不支持自动复制，请长按上方代码手动复制');
-            }
+        // 复制到剪贴板
+        navigator.clipboard.writeText(code).then(() => {
+            const hint = document.getElementById('copyHint');
+            hint.style.visibility = 'visible';
+            setTimeout(() => { hint.style.visibility = 'hidden'; }, 2000);
+        }).catch(err => {
+            console.error('复制失败', err);
+            alert("复制失败，请手动复制：" + code);
+        });
+    }
+
+    // --- 捐款逻辑 ---
+    let currentMin = 10;
+    let currentMax = 50;
+    let attempts = 0;
+    const maxAttempts = 3;
+    let historyAmounts = [];
+
+    // 初始化默认选中
+    window.onload = function() {
+        // 默认选中中间那个
+        selectRange(10, 50, document.querySelectorAll('.range-btn')[1]);
+    };
+
+    function selectRange(min, max, btnElement) {
+        // 如果已经开始测算（attempts > 0），禁止切换范围，防止逻辑混乱
+        if (attempts > 0 && attempts < 3) {
+            alert("请先完成当前的测算流程哦");
+            return;
         }
-    </script>
+
+        currentMin = min;
+        currentMax = max;
+
+        // 更新按钮样式
+        document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        // 重置状态
+        resetDonationState();
+    }
+
+    function resetDonationState() {
+        attempts = 0;
+        historyAmounts = [];
+        document.getElementById('resultBox').style.display = 'none';
+        document.getElementById('mainBtn').innerText = "测算功德金额";
+        document.getElementById('mainBtn').className = "btn-generate";
+        document.getElementById('chanceText').innerText = "";
+        document.getElementById('avgSuggestion').innerText = "";
+    }
+
+    function calculateDonation() {
+        // 生成随机数 (保留两位小数)
+        const randomVal = (Math.random() * (currentMax - currentMin) + currentMin).toFixed(2);
+        historyAmounts.push(parseFloat(randomVal));
+        attempts++;
+
+        // 显示结果区域
+        const resultBox = document.getElementById('resultBox');
+        resultBox.style.display = 'block';
+        document.getElementById('currentAmount').innerText = "¥ " + randomVal;
+
+        // 计算平均值
+        const sum = historyAmounts.reduce((a, b) => a + b, 0);
+        const avg = (sum / historyAmounts.length).toFixed(2);
+        document.getElementById('avgSuggestion').innerText = `历史均值参考：¥ ${avg}`;
+
+        const btn = document.getElementById('mainBtn');
+        const chanceText = document.getElementById('chanceText');
+
+        // 逻辑判断：是否还有下次机会？
+        if (attempts < maxAttempts) {
+            btn.innerText = "不满意？再算一次";
+            btn.className = "btn-retry";
+            chanceText.innerText = `您还可以重选 ${maxAttempts - attempts} 次`;
+        } else {
+            // 第三次，终止
+            btn.innerText = "确认此金额并捐款";
+            btn.className = "btn-final";
+            chanceText.innerText = "缘分已定，功德无量";
+            // 此时可以禁用范围选择，防止干扰
+            document.getElementById('rangeSelector').style.pointerEvents = 'none';
+            document.getElementById('rangeSelector').style.opacity = '0.5';
+        }
+    }
+</script>
+
 </body>
 </html>
