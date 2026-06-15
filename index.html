@@ -72,6 +72,7 @@
             font-weight: bold;
         }
         button:active { opacity: 0.8; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* --- 吉祥码模块特定样式 --- */
         .btn-generate { background-color: var(--primary-color); color: white; }
@@ -126,12 +127,29 @@
             line-height: 1;
         }
         .amount-label { font-size: 14px; color: #999; margin-top: 5px; }
-        .avg-hint { font-size: 13px; color: #666; margin-top: 10px; background: #fff8e1; padding: 5px 10px; border-radius: 4px; display: none;}
+        .avg-hint { 
+            font-size: 13px; 
+            color: #666; 
+            margin-top: 10px; 
+            background: #fff8e1; 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            display: none;
+            line-height: 1.5;
+        }
 
         .action-area { display: flex; gap: 10px; }
         .btn-retry { background-color: #fff; border: 1px solid #ccc; color: #666; }
         .btn-confirm { background-color: var(--btn-color); color: white; }
-
+        
+        .status-msg {
+            font-size: 12px;
+            color: #d35400;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -160,7 +178,7 @@
         <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">2. 测算随喜功德金</p>
 
         <!-- 范围选择 -->
-        <div class="range-selector">
+        <div class="range-selector" id="rangeSelector">
             <button class="range-btn active" onclick="setRange(1, 50, this)">小额<br>1-50</button>
             <button class="range-btn" onclick="setRange(50, 300, this)">中额<br>50-300</button>
             <button class="range-btn" onclick="setRange(300, 1000, this)">大额<br>300-1000</button>
@@ -168,13 +186,16 @@
 
         <!-- 结果显示区域 -->
         <div class="donation-display">
-            <div id="placeholderText" style="color:#ccc;">点击上方按钮开始测算</div>
+            <div id="placeholderText" style="color:#ccc;">选择范围后，点击下方按钮开始测算</div>
             <div id="resultArea" style="display:none;">
                 <div class="amount-big">¥ <span id="currentAmount">0</span></div>
                 <div class="amount-label">本次测算结果</div>
-                <div id="avgHint" class="avg-hint">三次平均值参考：<span id="avgValue">0</span> 元</div>
+                <div id="avgHint" class="avg-hint"></div>
             </div>
         </div>
+
+        <!-- 状态提示 -->
+        <div id="statusMsg" class="status-msg"></div>
 
         <!-- 操作按钮 -->
         <div class="action-area">
@@ -261,9 +282,34 @@
     let currentMax = 50;
     let attempts = 0;
     let historyAmounts = [];
+    const MAX_ATTEMPTS = 3;
+    const COOLDOWN_KEY = 'donation_cooldown_time';
+    const COOLDOWN_DURATION = 24 * 60 * 60 * 1000; // 24小时毫秒数
+
+    // 页面加载时检查是否处于冷却期
+    window.onload = function() {
+        checkCooldown();
+    };
+
+    function checkCooldown() {
+        const lastTime = localStorage.getItem(COOLDOWN_KEY);
+        if (lastTime) {
+            const now = new Date().getTime();
+            if (now - parseInt(lastTime) < COOLDOWN_DURATION) {
+                lockInterface("今日测算次数已用完，请等待24小时后再来");
+            } else {
+                // 超过24小时，清除记录，允许重新开始
+                localStorage.removeItem(COOLDOWN_KEY);
+                resetDonationUI();
+            }
+        }
+    }
 
     // 设置范围
     function setRange(min, max, btnElement) {
+        // 如果已经处于锁定状态，不允许切换
+        if (document.getElementById('btnStart').disabled) return;
+        
         // 重置状态
         resetDonationUI();
 
@@ -278,6 +324,9 @@
 
     // 开始/重置测算
     function startCalculation() {
+        // 如果是从锁定状态恢复，或者重新点击开始
+        if (document.getElementById('btnStart').disabled) return;
+        
         resetDonationUI();
         calculateRandom();
     }
@@ -298,24 +347,29 @@
         // 计算并显示平均值
         const sum = historyAmounts.reduce((a, b) => a + b, 0);
         const avg = Math.round(sum / historyAmounts.length);
-        document.getElementById('avgValue').innerText = avg;
-        document.getElementById('avgHint').style.display = 'block';
+        const avgDiv = document.getElementById('avgHint');
+        avgDiv.style.display = 'block';
+        avgDiv.innerHTML = `💡 当前平均值参考：<strong>¥ ${avg}</strong><br><span style="font-size:11px; color:#888">您可以选择取整（如 ${Math.ceil(avg/10)*10} 或 ${Math.floor(avg/10)*10}）</span>`;
 
         // 处理按钮逻辑
         const btnStart = document.getElementById('btnStart');
         const btnRetry = document.getElementById('btnRetry');
+        const statusMsg = document.getElementById('statusMsg');
 
-        if (attempts < 3) {
+        if (attempts < MAX_ATTEMPTS) {
             // 还有重试机会
+            statusMsg.style.display = 'none';
             btnStart.style.display = 'none';
             btnRetry.style.display = 'block';
-            document.getElementById('retryCount').innerText = 3 - attempts;
+            document.getElementById('retryCount').innerText = MAX_ATTEMPTS - attempts;
         } else {
-            // 达到3次，终止
-            btnRetry.style.display = 'none';
-            btnStart.innerText = "重新测算";
-            btnStart.style.display = 'block';
-            // 可选：这里可以加一个提示“缘分已定”
+            // 达到3次，这是最后一次测算
+            statusMsg.innerText = "⚠️ 这是最后一次测算。请您选择三次中的一次，或者平均值（也可取整）作为您本次乐捐的吉祥功德金。";
+            statusMsg.style.display = 'block';
+            
+            // 锁定界面，记录冷却时间
+            lockInterface("今日测算次数已用完，请等待24小时后再来");
+            localStorage.setItem(COOLDOWN_KEY, new Date().getTime());
         }
     }
 
@@ -324,15 +378,42 @@
         calculateRandom();
     }
 
+    // 锁定界面
+    function lockInterface(msg) {
+        const btnStart = document.getElementById('btnStart');
+        const btnRetry = document.getElementById('btnRetry');
+        const rangeSelector = document.getElementById('rangeSelector');
+        const statusMsg = document.getElementById('statusMsg');
+
+        btnStart.disabled = true;
+        btnStart.innerText = "今日测算已结束";
+        btnRetry.style.display = 'none';
+        rangeSelector.style.opacity = "0.5";
+        rangeSelector.style.pointerEvents = "none";
+        
+        statusMsg.innerText = "⏳ " + msg;
+        statusMsg.style.display = 'block';
+        statusMsg.style.color = "#999";
+    }
+
     // 重置界面状态
     function resetDonationUI() {
         attempts = 0;
         historyAmounts = [];
         document.getElementById('placeholderText').style.display = 'block';
         document.getElementById('resultArea').style.display = 'none';
-        document.getElementById('btnStart').innerText = "开始测算";
-        document.getElementById('btnStart').style.display = 'block';
+        document.getElementById('statusMsg').style.display = 'none';
+        
+        const btnStart = document.getElementById('btnStart');
+        btnStart.disabled = false;
+        btnStart.innerText = "开始测算";
+        btnStart.style.display = 'block';
+        
         document.getElementById('btnRetry').style.display = 'none';
+        
+        const rangeSelector = document.getElementById('rangeSelector');
+        rangeSelector.style.opacity = "1";
+        rangeSelector.style.pointerEvents = "auto";
     }
 </script>
 
