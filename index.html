@@ -483,7 +483,7 @@
             rangeSelector.style.pointerEvents = "auto";
         }
 
-        /* ==========================================
+        /*         /* ==========================================
         功能三：乐助认捐逻辑 (已更新)
         ========================================== */
         // 配置项目列表
@@ -498,7 +498,8 @@
                 id: 'p2', 
                 name: '瓷砖价格20/片（试验阶段，不要支付）', 
                 target: 20, 
-                link: 'https://item.jd.com/10208866100491.html#switch-sku' 
+                // 修改点：去掉了 URL 末尾的 #switch-sku 锚点
+                link: 'https://item.jd.com/10208866100491.html' 
             },
             { 
                 id: 'p3', 
@@ -534,7 +535,7 @@
                         <span>认捐完成率：${percent}%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${percent};"></div>
+                        <div class="progress-fill" style="width: ${percent}%;"></div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -542,3 +543,11 @@
         }
 
         // 点击项目
+        function handleProjectClick(id) {
+            const count = parseInt(localStorage.getItem(id) || '0') + 1;
+            localStorage.setItem(id, count);
+            renderProjects();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', renderProjects);
