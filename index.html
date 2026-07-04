@@ -6,12 +6,11 @@
     <title>无相布施吉祥码与功德测算</title>
     <style>
         :root {
-            --primary-color: #d35400; /* 佛教常用的赭石色 */
-            --btn-color: #07c160;     /* 微信绿 */
-            --bg-color: #fdfbf7;      /* 仿宣纸色 */
+            --primary-color: #d35400;
+            --btn-color: #07c160;
+            --bg-color: #fdfbf7;
             --card-bg: #ffffff;
         }
-
         body {
             font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             background-color: var(--bg-color);
@@ -22,7 +21,6 @@
             min-height: 100vh;
             color: #333;
         }
-
         .container {
             background: var(--card-bg);
             width: 100%;
@@ -32,21 +30,33 @@
             overflow: hidden;
             padding-bottom: 20px;
         }
-
         .header {
             text-align: center;
             padding: 20px 20px 10px;
             border-bottom: 1px solid #eee;
             margin-bottom: 20px;
         }
-
-        h2 { margin: 0; font-size: 20px; color: #222; }
-        p.desc { font-size: 13px; color: #666; margin-top: 8px; line-height: 1.5; }
-
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #222;
+        }
+        p.desc {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
         /* --- 模块通用样式 --- */
-        .module { padding: 0 25px; margin-bottom: 30px; }
-        .divider { height: 1px; background: #f0f0f0; margin: 0 25px 25px; }
-
+        .module {
+            padding: 0 25px;
+            margin-bottom: 30px;
+        }
+        .divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 0 25px 25px;
+        }
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -59,8 +69,9 @@
             box-sizing: border-box;
             outline: none;
         }
-        input[type="text"]:focus { border-color: var(--primary-color); }
-
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
         button {
             width: 100%;
             padding: 12px;
@@ -71,11 +82,18 @@
             transition: opacity 0.2s;
             font-weight: bold;
         }
-        button:active { opacity: 0.8; }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
-
+        button:active {
+            opacity: 0.8;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
         /* --- 吉祥码模块特定样式 --- */
-        .btn-generate { background-color: var(--primary-color); color: white; }
+        .btn-generate {
+            background-color: var(--primary-color);
+            color: white;
+        }
         .result-box {
             margin-top: 15px;
             padding: 15px;
@@ -90,24 +108,82 @@
             letter-spacing: 1px;
             text-align: center;
         }
-        .tip { margin-top: 8px; font-size: 12px; color: #888; text-align: center; display: none; }
-
+        .tip {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            display: none;
+        }
         /* --- 功德测算模块特定样式 --- */
-        .range-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .range-btn { flex: 1; background: #f0f0f0; color: #555; font-size: 14px; padding: 10px 5px; }
-        .range-btn.active { background: var(--primary-color); color: white; box-shadow: 0 2px 8px rgba(211, 84, 0, 0.3); }
-
-        .donation-display { text-align: center; margin: 20px 0; min-height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .amount-big { font-size: 42px; font-weight: bold; color: #d35400; line-height: 1; }
-        .amount-label { font-size: 14px; color: #999; margin-top: 5px; }
-        .avg-hint { font-size: 13px; color: #666; margin-top: 10px; background: #fff8e1; padding: 8px 12px; border-radius: 6px; display: none; line-height: 1.5; }
-
-        .action-area { display: flex; gap: 10px; }
-        .btn-retry { background-color: #fff; border: 1px solid #ccc; color: #666; }
-        .btn-confirm { background-color: var(--btn-color); color: white; }
-        
-        .status-msg { font-size: 12px; color: #d35400; margin-top: 10px; text-align: center; display: none; font-weight: bold; }
-
+        .range-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .range-btn {
+            flex: 1;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 14px;
+            padding: 10px 5px;
+        }
+        .range-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(211, 84, 0, 0.3);
+        }
+        .donation-display {
+            text-align: center;
+            margin: 20px 0;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .amount-big {
+            font-size: 42px;
+            font-weight: bold;
+            color: #d35400;
+            line-height: 1;
+        }
+        .amount-label {
+            font-size: 14px;
+            color: #999;
+            margin-top: 5px;
+        }
+        .avg-hint {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+            background: #fff8e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: none;
+            line-height: 1.5;
+        }
+        .action-area {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-retry {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #666;
+        }
+        .btn-confirm {
+            background-color: var(--btn-color);
+            color: white;
+        }
+        .status-msg {
+            font-size: 12px;
+            color: #d35400;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
         /* --- 乐助认捐模块特定样式 --- */
         .project-card {
             background: #f9f9f9;
@@ -119,215 +195,355 @@
             color: #333;
             transition: box-shadow 0.2s;
         }
-        .project-card:active { background: #f0f0f0; }
-        .project-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
-        .project-stats { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 6px; }
-        .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--btn-color); transition: width 0.3s ease; }
+        .project-card:active {
+            background: #f0f0f0;
+        }
+        .project-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--btn-color);
+            transition: width 0.3s ease;
+        }
+        
+        /* --- 新增：二维码弹窗样式 --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .qrcode-img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .close-btn {
+            margin-top: 15px;
+            background: #666;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .instruction {
+            font-size: 14px;
+            color: #333;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <!-- 顶部标题 -->
-    <div class="header">
-        <h2>🙏 无相布施助手</h2>
-        <p class="desc">生成AMTF永相伴吉祥码 & 随缘选择乐助范围 & 请认准项目点击进入项目页面完成订单</p>
-    </div>
-
-    <!-- 模块一：吉祥码生成 -->
-    <div class="module">
-        <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">1. 获取吉祥码 (AMTF)</p>
-        <input type="text" id="idSuffix" maxlength="3" placeholder="请输入身份证后三位(X用0替代)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
-        <button class="btn-generate" onclick="generateCode()">生成并复制吉祥码</button>
-        <div id="resultBox" class="result-box"></div>
-        <div id="tip" class="tip">✅ 已自动复制到剪贴板，请前往微信粘贴保存</div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- 模块二：功德金测算 -->
-    <div class="module">
-        <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">2. 测算随喜功德金</p>
-        <div class="range-selector" id="rangeSelector">
-            <button class="range-btn active" onclick="setRange(1, 50, this)">小额<br>1-50</button>
-            <button class="range-btn" onclick="setRange(50, 300, this)">中额<br>50-300</button>
-            <button class="range-btn" onclick="setRange(300, 1000, this)">大额<br>300-1000</button>
+    <div class="container">
+        <!-- 顶部标题 -->
+        <div class="header">
+            <h2>🙏 无相布施助手</h2>
+            <p class="desc">生成AMTF永相伴吉祥码 & 随缘选择乐助范围 & 请认准项目点击进入项目页面完成订单</p>
         </div>
-        <div class="donation-display">
-            <div id="placeholderText" style="color:#ccc;">选择范围后，点击下方按钮开始测算</div>
-            <div id="resultArea" style="display:none;">
-                <div class="amount-big">¥ <span id="currentAmount">0</span></div>
-                <div class="amount-label">本次测算结果</div>
-                <div id="avgHint" class="avg-hint"></div>
+
+        <!-- 模块一：吉祥码生成 -->
+        <div class="module">
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">1. 获取吉祥码 (AMTF)</p>
+            <input type="text" id="idSuffix" maxlength="3" placeholder="请输入身份证后三位(X用0替代)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
+            <button class="btn-generate" onclick="generateCode()">生成并复制吉祥码</button>
+            <div id="resultBox" class="result-box"></div>
+            <div id="tip" class="tip">✅ 已自动复制到剪贴板，请前往微信粘贴保存</div>
+        </div>
+        <div class="divider"></div>
+
+        <!-- 模块二：功德金测算 -->
+        <div class="module">
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">2. 测算随喜功德金</p>
+            <div class="range-selector" id="rangeSelector">
+                <button class="range-btn active" onclick="setRange(1, 50, this)">小额<br>1-50</button>
+                <button class="range-btn" onclick="setRange(50, 300, this)">中额<br>50-300</button>
+                <button class="range-btn" onclick="setRange(300, 1000, this)">大额<br>300-1000</button>
+            </div>
+            <div class="donation-display">
+                <div id="placeholderText" style="color:#ccc;">选择范围后，点击下方按钮开始测算</div>
+                <div id="resultArea" style="display:none;">
+                    <div class="amount-big">¥ <span id="currentAmount">0</span></div>
+                    <div class="amount-label">本次测算结果</div>
+                    <div id="avgHint" class="avg-hint"></div>
+                </div>
+            </div>
+            <div id="statusMsg" class="status-msg"></div>
+            <div class="action-area">
+                <button id="btnRetry" class="btn-retry" style="display:none;" onclick="retryCalculation()">再算一次 (<span id="retryCount">2</span>)</button>
+                <button id="btnStart" class="btn-confirm" onclick="startCalculation()">开始测算</button>
             </div>
         </div>
-        <div id="statusMsg" class="status-msg"></div>
-        <div class="action-area">
-            <button id="btnRetry" class="btn-retry" style="display:none;" onclick="retryCalculation()">再算一次 (<span id="retryCount">2</span>)</button>
-            <button id="btnStart" class="btn-confirm" onclick="startCalculation()">开始测算</button>
+        <div class="divider"></div>
+
+        <!-- 模块三：乐助认捐 -->
+        <div class="module">
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 15px;">3. 乐助项目认捐</p>
+            <div id="projectList"></div>
         </div>
     </div>
 
-    <div class="divider"></div>
-
-    <!-- 模块三：乐助认捐 (新增) -->
-    <div class="module">
-        <p style="font-size: 14px; font-weight: bold; margin-bottom: 15px;">3. 乐助项目认捐</p>
-        <div id="projectList"></div>
+    <!-- 二维码弹窗 -->
+    <div id="qrcodeModal" class="modal">
+        <div class="modal-content">
+            <!-- 请将下方的图片路径替换为你上传的图片文件名 -->
+            <img src="alipay-qrcode.png" alt="支付宝收款二维码" class="qrcode-img">
+            <p class="instruction">👉 请长按图片保存到相册，或截图后发送给微信好友/群聊完成支付。</p>
+            <button class="close-btn" onclick="closeModal()">关闭</button>
+        </div>
     </div>
-</div>
 
-<script>
-    /* ==========================================
-       功能一：吉祥码生成逻辑 (保持原有逻辑不变)
-       ========================================== */
-    function generateCode() {
-        const suffix = document.getElementById('idSuffix').value.trim().toUpperCase();
-        const resultBox = document.getElementById('resultBox');
-        const tip = document.getElementById('tip');
-        if (suffix.length !== 3) { alert("请输入准确的3位字符（数字或X）！"); return; }
-        let randomNums = '';
-        for (let i = 0; i < 3; i++) { randomNums += Math.floor(Math.random() * 10); }
-        let suffixArray = suffix.split('');
-        for (let i = suffixArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [suffixArray[i], suffixArray[j]] = [suffixArray[j], suffixArray[i]];
+    <script>
+        /* ==========================================
+        功能一：吉祥码生成逻辑 (保持原有逻辑不变)
+        ========================================== */
+        function generateCode() {
+            const suffix = document.getElementById('idSuffix').value.trim().toUpperCase();
+            const resultBox = document.getElementById('resultBox');
+            const tip = document.getElementById('tip');
+            if (suffix.length !== 3) {
+                alert("请输入准确的3位字符（数字或X）！");
+                return;
+            }
+            let randomNums = '';
+            for (let i = 0; i < 3; i++) {
+                randomNums += Math.floor(Math.random() * 10);
+            }
+            let suffixArray = suffix.split('');
+            for (let i = suffixArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [suffixArray[i], suffixArray[j]] = [suffixArray[j], suffixArray[i]];
+            }
+            const shuffledSuffix = suffixArray.join('');
+            const allNums = randomNums + shuffledSuffix;
+            const letters = ['A', 'M', 'T', 'F'];
+            let distribution = [0, 0, 0, 0];
+            for (let i = 0; i < 6; i++) {
+                let box = Math.floor(Math.random() * 4);
+                distribution[box]++;
+            }
+            let finalStr = '', numIndex = 0;
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < distribution[i]; j++) {
+                    finalStr += allNums[numIndex++];
+                }
+                finalStr += letters[i];
+            }
+            while (numIndex < 6) {
+                finalStr += allNums[numIndex++];
+            }
+            const finalCode = `无相布施者${finalStr}`;
+            resultBox.textContent = finalCode;
+            resultBox.style.display = 'block';
+            tip.style.display = 'none';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(finalCode).then(() => {
+                    tip.style.display = 'block';
+                }).catch(err => {
+                    console.error('复制失败', err);
+                });
+            }
         }
-        const shuffledSuffix = suffixArray.join('');
-        const allNums = randomNums + shuffledSuffix;
-        const letters = ['A', 'M', 'T', 'F'];
-        let distribution = [0, 0, 0, 0];
-        for (let i = 0; i < 6; i++) { let box = Math.floor(Math.random() * 4); distribution[box]++; }
-        let finalStr = '', numIndex = 0;
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < distribution[i]; j++) { finalStr += allNums[numIndex++]; }
-            finalStr += letters[i];
-        }
-        while (numIndex < 6) { finalStr += allNums[numIndex++]; }
-        const finalCode = `无相布施者${finalStr}`;
-        resultBox.textContent = finalCode;
-        resultBox.style.display = 'block';
-        tip.style.display = 'none';
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(finalCode).then(() => { tip.style.display = 'block'; }).catch(err => { console.error('复制失败', err); });
-        }
-    }
 
-    /* ==========================================
-       功能二：功德金测算逻辑 (保持原有逻辑不变)
-       ========================================== */
-    let currentMin = 1, currentMax = 50, attempts = 0, historyAmounts = [];
-    const MAX_ATTEMPTS = 3, COOLDOWN_KEY = 'donation_cooldown_time', COOLDOWN_DURATION = 24 * 60 * 60 * 1000;
-    window.onload = function() { checkCooldown(); renderProjects(); };
-    function checkCooldown() {
-        const lastTime = localStorage.getItem(COOLDOWN_KEY);
-        if (lastTime) {
-            const now = new Date().getTime();
-            if (now - parseInt(lastTime) < COOLDOWN_DURATION) { lockInterface("今日测算次数已用完，请等待24小时后再来"); } 
-            else { localStorage.removeItem(COOLDOWN_KEY); resetDonationUI(); }
+        /* ==========================================
+        功能二：功德金测算逻辑 (保持原有逻辑不变)
+        ========================================== */
+        let currentMin = 1, currentMax = 50, attempts = 0, historyAmounts = [];
+        const MAX_ATTEMPTS = 3, COOLDOWN_KEY = 'donation_cooldown_time', COOLDOWN_DURATION = 24 * 60 * 60 * 1000;
+
+        window.onload = function() {
+            checkCooldown();
+            renderProjects();
+        };
+
+        function checkCooldown() {
+            const lastTime = localStorage.getItem(COOLDOWN_KEY);
+            if (lastTime) {
+                const now = new Date().getTime();
+                if (now - parseInt(lastTime) < COOLDOWN_DURATION) {
+                    lockInterface("今日测算次数已用完，请等待24小时后再来");
+                } else {
+                    localStorage.removeItem(COOLDOWN_KEY);
+                    resetDonationUI();
+                }
+            }
         }
-    }
-    function setRange(min, max, btnElement) {
-        if (document.getElementById('btnStart').disabled) return;
-        resetDonationUI();
-        document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
-        btnElement.classList.add('active');
-        currentMin = min; currentMax = max;
-    }
-    function startCalculation() {
-        if (document.getElementById('btnStart').disabled) return;
-        resetDonationUI(); calculateRandom();
-    }
-    function calculateRandom() {
-        attempts++;
-        const amount = Math.floor(Math.random() * (currentMax - currentMin + 1)) + currentMin;
-        historyAmounts.push(amount);
-        document.getElementById('placeholderText').style.display = 'none';
-        document.getElementById('resultArea').style.display = 'block';
-        document.getElementById('currentAmount').innerText = amount;
-        const sum = historyAmounts.reduce((a, b) => a + b, 0);
-        const avg = Math.round(sum / historyAmounts.length);
-        const avgDiv = document.getElementById('avgHint');
-        avgDiv.style.display = 'block';
-        avgDiv.innerHTML = `💡 当前平均值参考：<strong>¥ ${avg}</strong><br><span style="font-size:11px; color:#888">您可以选择取整（如 ${Math.ceil(avg/10)*10} 或 ${Math.floor(avg/10)*10}）</span>`;
-        const btnStart = document.getElementById('btnStart'), btnRetry = document.getElementById('btnRetry'), statusMsg = document.getElementById('statusMsg');
-        if (attempts < MAX_ATTEMPTS) {
-            statusMsg.style.display = 'none'; btnStart.style.display = 'none'; btnRetry.style.display = 'block';
-            document.getElementById('retryCount').innerText = MAX_ATTEMPTS - attempts;
-        } else {
-            statusMsg.innerText = "⚠️ 这是最后一次测算。请您选择三次中的一次，或者平均值（也可取整）作为您本次乐捐的吉祥功德金。";
-            statusMsg.style.display = 'block';
-            lockInterface("今日测算次数已用完，请等待24小时后再来");
-            localStorage.setItem(COOLDOWN_KEY, new Date().getTime());
+
+        function setRange(min, max, btnElement) {
+            if (document.getElementById('btnStart').disabled) return;
+            resetDonationUI();
+            document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            currentMin = min;
+            currentMax = max;
         }
-    }
-    function retryCalculation() { calculateRandom(); }
-    function lockInterface(msg) {
-        const btnStart = document.getElementById('btnStart'), btnRetry = document.getElementById('btnRetry'), rangeSelector = document.getElementById('rangeSelector'), statusMsg = document.getElementById('statusMsg');
-        btnStart.disabled = true; btnStart.innerText = "今日测算已结束"; btnRetry.style.display = 'none';
-        rangeSelector.style.opacity = "0.5"; rangeSelector.style.pointerEvents = "none";
-        statusMsg.innerText = "⏳ " + msg; statusMsg.style.display = 'block'; statusMsg.style.color = "#999";
-    }
-    function resetDonationUI() {
-        attempts = 0; historyAmounts = [];
-        document.getElementById('placeholderText').style.display = 'block';
-        document.getElementById('resultArea').style.display = 'none';
-        document.getElementById('statusMsg').style.display = 'none';
-        const btnStart = document.getElementById('btnStart');
-        btnStart.disabled = false; btnStart.innerText = "开始测算"; btnStart.style.display = 'block';
-        document.getElementById('btnRetry').style.display = 'none';
-        const rangeSelector = document.getElementById('rangeSelector');
-        rangeSelector.style.opacity = "1"; rangeSelector.style.pointerEvents = "auto";
-    }
 
-    /* ==========================================
-       功能三：乐助认捐逻辑 (新增)
-       ========================================== */
-    // 在这里配置您的购物链接、项目名称和目标认捐数
-    const PROJECTS = [
-        { id: 'p1', name: '认购窗帘单价格100，注意更改收货地址见微信', target: 20, link: 'https://item.taobao.com/item.htm?id=910292626070&skuId=6006378217352' },
-        { id: 'p2', name: '瓷砖25每片（注意更改收货地址见微信）', target: 3, link: 'https://item.jd.com/10208866100491.html#switch-sku' },
-        { id: 'p3', name: '放生护生祈福善行（上面您选中的金额）', target: 200, link: https://www.xichen22.com/s/nw2nRL242MP' },
-   { id: 'p4', name: '随缘乐助头陀度假村，上面您选中的金额', target: 200, link: 'https://www.xichen22.com/s/ https://www.yinuo22.com/s/bnPTgej42pA' }
-    ];
+        function startCalculation() {
+            if (document.getElementById('btnStart').disabled) return;
+            resetDonationUI();
+            calculateRandom();
+        }
 
-
-    // 渲染项目列表
-    function renderProjects() {
-        const container = document.getElementById('projectList');
-        container.innerHTML = '';
-        PROJECTS.forEach(project => {
-            const count = parseInt(localStorage.getItem(project.id) || '0');
-            const percent = Math.min(100, Math.round((count / project.target) * 100));
+        function calculateRandom() {
+            attempts++;
+            const amount = Math.floor(Math.random() * (currentMax - currentMin + 1)) + currentMin;
+            historyAmounts.push(amount);
+            document.getElementById('placeholderText').style.display = 'none';
+            document.getElementById('resultArea').style.display = 'block';
+            document.getElementById('currentAmount').innerText = amount;
+            const sum = historyAmounts.reduce((a, b) => a + b, 0);
+            const avg = Math.round(sum / historyAmounts.length);
+            const avgDiv = document.getElementById('avgHint');
+            avgDiv.style.display = 'block';
+            avgDiv.innerHTML = `💡 当前平均值参考：<strong>¥ ${avg}</strong><br><span style="font-size:11px; color:#888">您可以选择取整（如 ${Math.ceil(avg/10)*10} 或 ${Math.floor(avg/10)*10}）</span>`;
             
-            const card = document.createElement('a');
-            card.href = project.link;
-            card.target = '_blank'; // 在新标签页打开
-            card.className = 'project-card';
-            card.onclick = () => handleProjectClick(project.id);
-            card.innerHTML = `
-                <div class="project-title">${project.name}</div>
-                <div class="project-stats">
-                    <span>已被选择：${count} 次</span>
-                    <span>认捐完成率：${percent}%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${percent}%;"></div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
+            const btnStart = document.getElementById('btnStart'), 
+                  btnRetry = document.getElementById('btnRetry'), 
+                  statusMsg = document.getElementById('statusMsg');
+            
+            if (attempts < MAX_ATTEMPTS) {
+                statusMsg.style.display = 'none';
+                btnStart.style.display = 'none';
+                btnRetry.style.display = 'block';
+                document.getElementById('retryCount').innerText = MAX_ATTEMPTS - attempts;
+            } else {
+                statusMsg.innerText = "⚠️ 这是最后一次测算。请您选择三次中的一次，或者平均值（也可取整）作为您本次乐捐的吉祥功德金。";
+                statusMsg.style.display = 'block';
+                lockInterface("今日测算次数已用完，请等待24小时后再来");
+                localStorage.setItem(COOLDOWN_KEY, new Date().getTime());
+            }
+        }
 
-    // 点击项目时增加计数
-    function handleProjectClick(projectId) {
-        const count = parseInt(localStorage.getItem(projectId) || '0') + 1;
-        localStorage.setItem(projectId, count);
-        // 延迟一点渲染，确保链接跳转顺畅
-        setTimeout(renderProjects, 100);
-    }
-</script>
+        function retryCalculation() {
+            calculateRandom();
+        }
 
-</body>
-</html>
+        function lockInterface(msg) {
+            const btnStart = document.getElementById('btnStart'), 
+                  btnRetry = document.getElementById('btnRetry'), 
+                  rangeSelector = document.getElementById('rangeSelector'), 
+                  statusMsg = document.getElementById('statusMsg');
+            btnStart.disabled = true;
+            btnStart.innerText = "今日测算已结束";
+            btnRetry.style.display = 'none';
+            rangeSelector.style.opacity = "0.5";
+            rangeSelector.style.pointerEvents = "none";
+            statusMsg.innerText = "⏳ " + msg;
+            statusMsg.style.display = 'block';
+            statusMsg.style.color = "#999";
+        }
+
+        function resetDonationUI() {
+            attempts = 0;
+            historyAmounts = [];
+            document.getElementById('placeholderText').style.display = 'block';
+            document.getElementById('resultArea').style.display = 'none';
+            document.getElementById('statusMsg').style.display = 'none';
+            const btnStart = document.getElementById('btnStart');
+            btnStart.disabled = false;
+            btnStart.innerText = "开始测算";
+            btnStart.style.display = 'block';
+            document.getElementById('btnRetry').style.display = 'none';
+            const rangeSelector = document.getElementById('rangeSelector');
+            rangeSelector.style.opacity = "1";
+            rangeSelector.style.pointerEvents = "auto";
+        }
+
+        /* ==========================================
+        功能三：乐助认捐逻辑 (已更新)
+        ========================================== */
+        // 配置项目列表
+        const PROJECTS = [
+            { 
+                id: 'p1', 
+                name: '认购窗帘单价格70（试验阶段，不要支付，注意更改收货地址见微信）', 
+                target: 100, 
+                link: 'https://item.taobao.com/item.htm?id=910292626070&skuId=6006378217352' 
+            },
+            { 
+                id: 'p2', 
+                name: '瓷砖价格20/片（试验阶段，注意更改收货地址见微信）', 
+                target: 20, 
+                link: 'https://item.jd.com/10208866100490.html#switch-sku' 
+            },
+            { 
+                id: 'p3', 
+                name: '放生收款（点击下面链接请用上面自选吉祥码更改昵称，小额支付）', 
+                target: 5, 
+                link: 'https://www.xichen22.com/s/nw2nRL242MP ' 
+            }，
+ id: 'p3', 
+                name: '随缘护持头陀度假村（，请用上面自选吉祥码更改昵称，小额支付', 
+                target: 5, 
+                link: '点击https://www.xichen22.com/s/ https://www.yinuo22.com/s/bnPTgej42pA' 
+            }
+        ];
+
+        // 渲染项目列表
+        function renderProjects() {
+            const container = document.getElementById('projectList');
+            container.innerHTML = '';
+            PROJECTS.forEach(project => {
+                const count = parseInt(localStorage.getItem(project.id) || '0');
+                const percent = Math.min(100, Math.round((count / project.target) * 100));
+                const card = document.createElement('a');
+                card.href = "#"; // 阻止默认跳转
+                card.className = 'project-card';
+                card.onclick = (e) => {
+                    e.preventDefault(); // 阻止页面跳转
+                    if (project.id === 'p3') {
+                        openModal(); // 打开二维码弹窗
+                    } else {
+                        window.open(project.link, '_blank'); // 其他项目保持原样
+                    }
+                    handleProjectClick(project.id);
+                };
+                card.innerHTML = `
+                    <div class="project-title">${project.name}</div>
+                    <div class="project-stats">
+                        <span>已被选择：${count} 次</span>
+                        <span>认捐完成率：${percent}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percent};"></div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 点击项目
