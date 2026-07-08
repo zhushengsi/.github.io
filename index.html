@@ -132,7 +132,7 @@
     <!-- 顶部标题 -->
     <div class="header">
         <h2>🙏 无相布施助手</h2>
-        <p class="desc">生成专属种子字吉祥码 & 随缘功德测算 & 乐助认捐</p>
+        <p class="desc">生成AMTF专属个人吉祥码 & 随缘功德金测算 & 乐助认捐</p>
     </div>
 
     <!-- 模块一：吉祥码生成 -->
@@ -173,7 +173,7 @@
 
     <!-- 模块三：乐助认捐 (新增) -->
     <div class="module">
-        <p style="font-size: 14px; font-weight: bold; margin-bottom: 15px;">3. 乐助项目认捐6.2</p>
+        <p style="font-size: 14px; font-weight: bold; margin-bottom: 15px;">3. 乐助项目认捐6.3</p>
         <div id="projectList"></div>
     </div>
 </div>
@@ -286,8 +286,15 @@
        ========================================== */
     // 在这里配置您的购物链接、项目名称和目标认捐数
     const PROJECTS = [
-          { id: 'p1', name: '认购LED灯22.6，请您先登录淘宝再进入商品链接并注意联系收货地址', target: 20, link: 'https://detail.tmall.com/item.htm?id=863798444682' },
-            { id: 'p2', name: '在页面输入吉祥码，随缘用支付宝支付共建头陀度假村单次限额1000', target: 200, link: 'https://www.xichen22.com/s/bnPTgej42pA'}
+          { id: 'p1', name: '认购LED灯22.6，请您先登录淘宝再进入商品链接', target: 20, link: 'https://detail.tmall.com/item.htm?id=863798444682' },
+         <div class="info-card">
+    <h3>收货信息</h3>
+    <p>姓名：李居士</p>
+    <p>联系电话：13020180119</p>
+    <p>收货地址：江西省九江市濂溪区赛阳镇东林村五组东林逸居隔壁</p>
+    <p>备注：发件人最好填写无相布施吉祥码或者无相布施者</p>
+</div>  
+        { id: 'p2', name: '在页面输入吉祥码，随缘用支付宝支付共建头陀度假村，首选前面自动测算的金额或自定任意额', target: 200, link: 'https://www.xichen22.com/s/bnPTgej42pA'}
         ];
 
     // 渲染项目列表
