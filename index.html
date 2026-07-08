@@ -31,13 +31,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         h1 {
-            text-align: center;
-            color: var(--primary-color);
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-        }
+    text-align: center;
+    color: #8B0000; /* 暗朱红色 */
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #8B0000; /* 下划线颜色也同步修改，保持视觉统一 */
+    padding-bottom: 10px;
+}
         h2 {
             font-size: 1.3rem;
             color: var(--primary-color);
@@ -146,12 +146,12 @@
 
     <!-- ================= 模块一：无相布施 ================= -->
     <div>
-        <h2>一、无相布施路径</h2>
+        <h2>一、无相乐捐路径</h2>
         
         <!-- 1. 吉祥码生成 -->
         <div class="sub-module">
             <p style="font-weight:bold; margin-bottom:10px;">1. 生成吉祥码 (AMTF加持)</p>
-            <input type="text" id="idSuffix" maxlength="3" placeholder="请输入身份证后三位(X用0替代)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
+            <input type="text" id="idSuffix" maxlength="3" placeholder="输入身份证后三位(X→0)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
             <button class="btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
             <div id="resultBox" style="margin-top:15px; padding:10px; background:#e8f5e9; border:1px dashed var(--primary-color); border-radius:8px; font-weight:bold; color:var(--primary-color); display:none; word-break:break-all;"></div>
             <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 已自动复制到剪贴板</div>
@@ -161,9 +161,9 @@
         <div class="sub-module">
             <p style="font-weight:bold; margin-bottom:10px;">2. 测算随喜功德金</p>
             <div class="tabs">
-                <div class="tab-btn active" onclick="selectTab(this, 1, 50)">小额 (1-50)</div>
-                <div class="tab-btn" onclick="selectTab(this, 50, 300)">中额 (50-300)</div>
-                <div class="tab-btn" onclick="selectTab(this, 300, 1000)">大额 (300-1000)</div>
+                <div class="tab-btn active" onclick="selectTab(this, 1, 50)">小额 (1-30)</div>
+                <div class="tab-btn" onclick="selectTab(this, 50, 300)">中额 (48-100)</div>
+                <div class="tab-btn" onclick="selectTab(this, 300, 1000)">大额 (188-488)</div>
             </div>
             <button class="btn-success" onclick="calculateMerit()">开始测算 (3次机会)</button>
             <div id="meritResult" class="result-area"></div>
