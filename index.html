@@ -154,18 +154,18 @@
             <input type="text" id="idSuffix" maxlength="3" placeholder="输入身份证后三位(X→0)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
             <button class="btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
             <div id="resultBox" style="margin-top:15px; padding:10px; background:#e8f5e9; border:1px dashed var(--primary-color); border-radius:8px; font-weight:bold; color:var(--primary-color); display:none; word-break:break-all;"></div>
-            <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 已自动复制到剪贴板</div>
+            <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已自动复制到剪贴板，请您粘贴到微信等处保存，并略作记忆识别</div>
         </div>
 
         <!-- 2. 功德金测算 -->
         <div class="sub-module">
             <p style="font-weight:bold; margin-bottom:10px;">2. 测算随喜功德金</p>
             <div class="tabs">
-                <div class="tab-btn active" onclick="selectTab(this, 1, 50)">小额 (1-30)</div>
-                <div class="tab-btn" onclick="selectTab(this, 50, 300)">中额 (48-100)</div>
-                <div class="tab-btn" onclick="selectTab(this, 300, 1000)">大额 (188-488)</div>
+                <div class="tab-btn active" onclick="selectTab(this, 1, 30)">小额 (1-30)</div>
+                <div class="tab-btn" onclick="selectTab(this, 48, 148)">中额 (48-148)</div>
+                <div class="tab-btn" onclick="selectTab(this, 188, 488)">大额 (188-488)</div>
             </div>
-            <button class="btn-success" onclick="calculateMerit()">开始测算 (3次机会)</button>
+            <button class="btn-success" onclick="calculateMerit()">开始测算 (每天共有3次机会)</button>
             <div id="meritResult" class="result-area"></div>
         </div>
 
@@ -173,7 +173,7 @@
         <div class="sub-module">
             <p style="font-weight:bold; margin-bottom:10px;">3. 随缘乐助支付</p>
             <a href="https://www.xichen22.com/s/bnPTgej42pA" target="_blank" style="text-decoration:none;">
-                <button class="btn-success" style="margin-bottom: 10px;">💰 支付宝支付 (输入吉祥码)</button>
+                <button class="btn-success" style="margin-bottom: 10px;">💰 支付宝支付 (请在提示位置直接粘贴无相吉祥码)</button>
             </a>
         </div>
     </div>
