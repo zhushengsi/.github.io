@@ -172,12 +172,12 @@
        
 <!-- 3. 随缘乐助链接 -->        
 <div class="sub-module">            
-<p style="font-weight:bold; margin-bottom:10px;">3. 随缘乐助支付3.1</p>
+<p style="font-weight:bold; margin-bottom:10px;">3. 随缘乐助支付1.1</p>
 <p style="color:#555;margin-bottom:12px;">👉 微信、支付宝两种通道任选其一进行付款</p>
 
-<!-- 微信支付 (自动跳转并带上吉祥码) -->
-<a id="wechatPayLink" href="index2.html" target="_blank" style="text-decoration:none;">
-    <button class="btn-success" style="margin-bottom: 10px;" onclick="prepareWechatPay()">💚 微信支付 (自动带码跳转)</button>
+<!-- 【新增】微信支付模块，放在支付宝上方 -->
+<a href="https://zhushengsi.github.io/toutuo-pay/" target="_blank" style="text-decoration:none;">                
+<button class="btn-success" style="margin-bottom: 10px;">💚 微信支付 (打开页面后一键复制收款口令到您的微信中再点击链接就可以完成无相布施了)</button>            
 </a>
 
 <!-- 你原有支付宝代码，原样不动 -->
@@ -378,17 +378,6 @@
             document.body.removeChild(ta);
         }
     }
-// 准备微信支付：获取吉祥码并拼接到链接上
-function prepareWechatPay() {
-    const luckyCode = document.getElementById('resultBox').textContent;
-    if (luckyCode && luckyCode.startsWith('无相布施者')) {
-        // 提取吉祥码中的核心数字字母部分
-        const codeValue = luckyCode.replace('无相布施者', '');
-        // 修改支付链接，带上吉祥码参数
-        document.getElementById('wechatPayLink').href = `index2.html?code=${codeValue}`;
-    }
-    // 如果没生成吉祥码，就跳转到不带参数的 index2.html，它会只复制基础口令
-}
 </script>
 
 </body>
