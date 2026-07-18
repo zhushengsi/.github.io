@@ -277,22 +277,17 @@
         resultBox.style.display = 'block';
         tip.style.display = 'none';
 
+                // 复制到剪贴板并保存到本地
         if (navigator.clipboard) {
             navigator.clipboard.writeText(finalCode).then(() => {
                 tip.style.display = 'block';
-                // 【新增代码开始】将吉祥码保存到本地存储
-    localStorage.setItem('wuxiangLuckyCode', finalCode);
-    // 【新增代码结束】
-  }).catch(err => {
-    console.error('复制失败', err);
-  });
-}
-// ... 之后的代码 ...
+                // 将吉祥码保存到本地存储，供支付页读取
+                localStorage.setItem('wuxiangLuckyCode', finalCode);
             }).catch(err => {
                 console.error('复制失败', err);
             });
         }
-    }
+    } // 正确关闭 generateCode 函数
 
     // 2. 功德金测算
     let minVal = 1, maxVal = 50;
