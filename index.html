@@ -154,7 +154,7 @@
             <input type="text" id="idSuffix" maxlength="3" placeholder="输入身份证后三位(X→0)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
             <button class="btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
             <div id="resultBox" style="margin-top:15px; padding:10px; background:#e8f5e9; border:1px dashed var(--primary-color); border-radius:8px; font-weight:bold; color:var(--primary-color); display:none; word-break:break-all;"></div>
-            <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已自动复制到剪贴板，粘贴到您的微信对话框等处发送保存（便于再次复制，防止其他复制操作覆盖本次复制。也可用笔记下直接输入后续位置），并略作记忆识别</div>
+            <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已生成成功（用于后面合并粘贴）</div>
         </div>
 
         <!-- 2. 功德金测算 -->
@@ -177,7 +177,7 @@
 
 <!-- 【新增】微信支付模块，放在支付宝上方 -->
 <a href="https://zhushengsi.github.io/toutuo-pay/" target="_blank" style="text-decoration:none;">                
-<button class="btn-success" style="margin-bottom: 10px;">💚 微信支付 (打开页面后一键复制收款口令到您的微信中再点击链接就可以完成无相布施了)</button>            
+<button class="btn-success" style="margin-bottom: 10px;">💚 微信支付 (打开页面后，建议选取与吉祥码合并复制)</button>            
 </a>
 
 <!-- 你原有支付宝代码，原样不动 -->
