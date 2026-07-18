@@ -280,6 +280,14 @@
         if (navigator.clipboard) {
             navigator.clipboard.writeText(finalCode).then(() => {
                 tip.style.display = 'block';
+                // 【新增代码开始】将吉祥码保存到本地存储
+    localStorage.setItem('wuxiangLuckyCode', finalCode);
+    // 【新增代码结束】
+  }).catch(err => {
+    console.error('复制失败', err);
+  });
+}
+// ... 之后的代码 ...
             }).catch(err => {
                 console.error('复制失败', err);
             });
