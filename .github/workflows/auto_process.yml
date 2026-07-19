@@ -1,0 +1,46 @@
+name: Auto Process Payment Data
+
+# 1. 触发条件：每天早上 9 点自动运行 (UTC时间，请根据时区调整)
+on:
+  schedule:
+    - cron: '0 0 * * *' # 对应北京时间早上8 点
+  workflow_dispatch:      # 允许手动点击按钮立即运行
+
+# 2. 运行环境设置
+jobs:
+  process-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤 A: 检出你的代码仓库
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 步骤 B: 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # 步骤 C: 安装必要的依赖库
+      - name: Install dependencies
+        run: |
+          pip install imap-tools pandas openpyxl
+
+      # 步骤 D: 运行我们刚才写的 Python 脚本
+      # 注意：这里会自动注入你在 Secrets 里设置的 QQ 邮箱账号密码
+      - name: Run data processing script
+        env:
+          QQ_EMAIL: ${{ secrets.QQ_EMAIL }}
+          QQ_AUTH_CODE: ${{ secrets.QQ_AUTH_CODE }}
+        run: python process_data.py
+
+      # 步骤 E: 部署到 GitHub Pages
+      # 将生成的 data.json 和 index.html 推送到 gh-pages 分支供人访问
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: . 
+          keep_files: true 
