@@ -1,6 +1,6 @@
 name: Auto Process Payment Data
 
-# 1. 触发条件：每天早上 9 点自动运行 (UTC时间，请根据时区调整)
+# 1. 触发条件：每天早上8 点自动运行 (UTC时间，请根据时区调整)
 on:
   schedule:
     - cron: '0 0 * * *' # 对应北京时间早上8 点
