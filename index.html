@@ -108,7 +108,7 @@
                 <input type="text" id="idSuffix" maxlength="3" placeholder="输入身份证后三位(X→0)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
                 <button class="btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
                 <div id="resultBox" style="margin-top:15px; padding:10px; background:#e8f5e9; border:1px dashed var(--primary-color); border-radius:8px; font-weight:bold; color:var(--primary-color); display:none; word-break:break-all;"></div>
-                <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已生成并复制（含#，可直接粘贴至微信）</div>
+                <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已生成并复制（粘贴至微信将自动带#）</div>
             </div>
             <div class="sub-module">
                 <p style="font-weight:bold; margin-bottom:10px;">2. 测算随喜功德金</p>
@@ -201,22 +201,35 @@
             }
             while (numIndex < 6) finalStr += allNums[numIndex++];
             
-            // 🌟 核心修改：直接在生成时加上 #
-            const finalCode = `#无相布施者${finalStr}`;
+            // 🌟 纯净的吉祥码（用于网页展示）
+            const pureCode = `无相布施者${finalStr}`;
+            // 🌟 带#的吉祥码（用于复制到微信）
+            const wechatCode = `#${pureCode}`;
             // --- 复杂生成逻辑结束 ---
 
-            // 网页上展示吉祥码（应用蓝色样式）
-            resultBox.innerHTML = `<span class="lucky-code">${finalCode}</span>`;
+            // 网页上展示纯净的吉祥码（应用蓝色样式）
+            resultBox.innerHTML = `<span class="lucky-code">${pureCode}</span>`;
             resultBox.style.display = 'block';
             tip.style.display = 'none';
 
-            // 自动复制到剪贴板并保存到本地
+            // 默认先复制纯净版到剪贴板
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(finalCode).then(() => {
+                navigator.clipboard.writeText(pureCode).then(() => {
                     tip.style.display = 'block';
-                    localStorage.setItem('wuxiangLuckyCode', finalCode);
+                    localStorage.setItem('wuxiangLuckyCode', pureCode);
                 }).catch(err => console.error('复制失败', err));
             }
+
+            // 🌟 核心魔法：全局监听复制事件，精准拦截并替换
+            document.addEventListener('copy', function(e) {
+                const selection = window.getSelection().toString();
+                // 如果用户选中的正好是纯净的吉祥码，则替换为带#的版本
+                if (selection === pureCode) {
+                    e.preventDefault(); // 阻止默认复制
+                    // 使用 execCommand 写入带#的文本，兼容性极佳
+                    document.execCommand('insertText', false, wechatCode);
+                }
+            });
         }
 
         // 2. 功德金测算
