@@ -31,8 +31,8 @@ jobs:
       # 注意：这里会自动注入你在 Secrets 里设置的 QQ 邮箱账号密码
       - name: Run data processing script
         env:
-          QQ_EMAIL: ${{ secrets.QQ_EMAIL }}
-          QQ_AUTH_CODE: ${{ secrets.QQ_AUTH_CODE }}
+          QQ_EMAIL: ${{ secrets.QQ_EMAIL_USER }}
+          QQ_AUTH_CODE: ${{ secrets.QQ_EMAIL_AUTH_CODE }}
         run: python process_data.py
 
       # 步骤 E: 部署到 GitHub Pages
