@@ -6,10 +6,9 @@
     <title>无相布施与实物资助助手</title>
     <style>
         :root {
-            /* 调整为沉稳、平和的绿色风格 */
-            --primary-color: #2e7d32; /* 深绿色 */
-            --btn-color: #07c160; /* 微信绿 */
-            --bg-color: #f0f7f0; /* 淡绿色背景 */
+            --primary-color: #2e7d32; 
+            --btn-color: #07c160; 
+            --bg-color: #f0f7f0; 
             --card-bg: #ffffff;
             --text-color: #333;
         }
@@ -32,10 +31,10 @@
         }
         h1 {
             text-align: center;
-            color: #8B0000; /* 暗朱红色 */
+            color: #8B0000; 
             font-size: 1.6rem;
             margin-bottom: 30px;
-            border-bottom: 2px solid #8B0000; /* 下划线颜色也同步修改，保持视觉统一 */
+            border-bottom: 2px solid #8B0000; 
             padding-bottom: 10px;
         }
         h2 {
@@ -46,15 +45,12 @@
             border-left: 5px solid var(--primary-color);
             padding-left: 10px;
         }
-        /* 通用组件 */
         .sub-module {
             margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 1px dashed #eee;
         }
-        .sub-module:last-child {
-            border-bottom: none;
-        }
+        .sub-module:last-child { border-bottom: none; }
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -74,150 +70,46 @@
             font-weight: bold;
             transition: opacity 0.2s;
         }
-        button:active {
-            opacity: 0.8;
-        }
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .btn-success {
-            background-color: var(--btn-color);
-            color: white;
-        }
-        .btn-outline {
-            background-color: #fff;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-        /* 模块一：功德测算特有样式 */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .tab-btn {
-            flex: 1;
-            background: #eee;
-            color: #666;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .tab-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-        .result-area {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            min-height: 60px;
-        }
-        /* 模块二：实物资助特有样式 */
-        .project-card {
-            display: block;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s;
-        }
-        .project-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .project-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .project-desc {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        /* 底部地址栏 */
-        #address-panel {
-            display: none;
-            margin-top: 20px;
-            background: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            animation: fadeIn 0.5s;
-        }
-        .address-content {
-            font-weight: bold;
-            color: #333;
-            line-height: 1.5;
-        }
-        .copy-hint {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 5px;
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        /* 新增：布施动态提醒样式 */
-        .dynamic-reminder {
-            margin-top: 25px;
-            padding: 15px;
-            border: 1px dashed var(--primary-color);
-            border-radius: 8px;
-            background-color: #f9fdfa;
-            text-align: center;
-        }
-        .dynamic-reminder h3 {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        .dynamic-reminder p {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 5px 0;
-        }
-        .dynamic-reminder a {
-            color: var(--btn-color);
-            font-weight: bold;
-            text-decoration: underline;
-        }
+        button:active { opacity: 0.8; }
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-success { background-color: var(--btn-color); color: white; }
+        .btn-outline { background-color: #fff; border: 1px solid var(--primary-color); color: var(--primary-color); }
+        .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { flex: 1; background: #eee; color: #666; padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 14px; }
+        .tab-btn.active { background: var(--primary-color); color: white; }
+        .result-area { text-align: center; margin: 15px 0; font-size: 1.2rem; font-weight: bold; color: var(--primary-color); min-height: 60px; }
+        .project-card { display: block; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-decoration: none; color: inherit; transition: all 0.2s; }
+        .project-card:hover { border-color: var(--primary-color); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .project-title { font-weight: bold; margin-bottom: 8px; }
+        .project-desc { font-size: 0.9rem; color: #666; margin-bottom: 10px; }
+        #address-panel { display: none; margin-top: 20px; background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; animation: fadeIn 0.5s; }
+        .address-content { font-weight: bold; color: #333; line-height: 1.5; }
+        .copy-hint { font-size: 0.8rem; color: #888; margin-top: 5px; display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .dynamic-reminder { margin-top: 25px; padding: 15px; border: 1px dashed var(--primary-color); border-radius: 8px; background-color: #f9fdfa; text-align: center; }
+        .dynamic-reminder h3 { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 10px; }
+        .dynamic-reminder p { font-size: 0.9rem; color: #555; margin: 5px 0; }
+        .dynamic-reminder a { color: var(--btn-color); font-weight: bold; text-decoration: underline; }
 
-        /* 🌟 新增：吉祥码专属样式（微信蓝色） */
+        /* 🌟 吉祥码专属样式（微信蓝色） */
         .lucky-code {
-            color: #576b95; /* 微信链接/话题经典蓝 */
+            color: #576b95; 
             font-weight: bold;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>无相布施助手</h1>
-        <!-- ================= 模块一：无相布施 ================= -->
         <div>
             <h2>一、无相乐捐路径</h2>
-            <!-- 1. 吉祥码生成 -->
             <div class="sub-module">
                 <p style="font-weight:bold; margin-bottom:10px;">1. 生成吉祥码 (AMTF加持)</p>
                 <input type="text" id="idSuffix" maxlength="3" placeholder="输入身份证后三位(X→0)" oninput="this.value=this.value.replace(/[^0-9Xx]/g,'')">
                 <button class="btn-primary" onclick="generateCode()">生成并复制吉祥码</button>
                 <div id="resultBox" style="margin-top:15px; padding:10px; background:#e8f5e9; border:1px dashed var(--primary-color); border-radius:8px; font-weight:bold; color:var(--primary-color); display:none; word-break:break-all;"></div>
-                <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已生成成功（用于后面合并粘贴）</div>
+                <div id="tip" style="font-size:12px; color:#888; text-align:center; margin-top:8px; display:none;">✅ 您的专属吉祥码已生成并复制（含#，可直接粘贴至微信）</div>
             </div>
-            <!-- 2. 功德金测算 -->
             <div class="sub-module">
                 <p style="font-weight:bold; margin-bottom:10px;">2. 测算随喜功德金</p>
                 <div class="tabs">
@@ -228,46 +120,36 @@
                 <button class="btn-success" onclick="calculateMerit()">开始测算 (每天共有3次机会)</button>
                 <div id="meritResult" class="result-area"></div>
             </div>
-            <!-- 3. 随缘乐助链接 -->
             <div class="sub-module">
                 <p style="font-weight:bold; margin-bottom:10px;">3. 随缘乐助支付1.1</p>
                 <p style="color:#555;margin-bottom:12px;">👉 微信、支付宝两种通道任选其一进行付款</p>
-                <!-- 【新增】微信支付模块，放在支付宝上方 -->
                 <a href="https://zhushengsi.github.io/toutuo-pay/" target="_blank" style="text-decoration:none;">
                     <button class="btn-success" style="margin-bottom: 10px;">💚 微信支付 (打开页面后，建议选取与吉祥码合并复制)</button>
                 </a>
-                <!-- 你原有支付宝代码，原样不动 -->
                 <a href="https://www.xichen22.com/s/bnPTgej42pA" target="_blank" style="text-decoration:none;">
                     <button class="btn-success" style="margin-bottom: 10px;">💰 支付宝支付 (请在提示位置直接粘贴无相吉祥码)</button>
                 </a>
             </div>
-            <!-- 【新增】布施动态提醒模块 -->
             <div class="dynamic-reminder">
                 <h3>📢 布施动态与建设进展（待完善....）</h3>
                 <p>1. 以后将有布施动态查询链接发布于此页面中（输入吉祥码可查）</p>
                 <p>2. 以后将有度假村的建设动态图文展示。</p>
-                <!-- 注意：请将下方的 # 替换为您的金山文档实际链接 -->
                 <p><a href="#" target="_blank">👉 点击此处前往金山文档</a></p>
             </div>
-            <!-- ================= 模块二：实物资助 ================= -->
             <div>
                 <h2>二、实物资助无相乐捐</h2>
-                <!-- 1. 复制收货信息 -->
                 <div class="sub-module">
                     <p style="font-weight:bold; margin-bottom:10px;">1. 获取收货信息</p>
                     <button class="btn-outline" onclick="showAddressPanel()">点击复制收货人信息</button>
                     <p style="font-size:0.8rem; color:#999; margin-top:10px;">复制后，在购物网站添加地址时可直接粘贴，部分网站有智能提示，自动识别姓名、电话和地址。</p>
                 </div>
-                <!-- 2. 实物资助链接 -->
                 <div class="sub-module">
                     <p style="font-weight:bold; margin-bottom:10px;">2. 选择资助项目9.2</p>
-                    <!-- 淘宝项目 -->
                     <a href="https://detail.tmall.com/item.htm?id=863798444682" target="_blank" class="project-card" onclick="trackClick('p1')">
                         <div class="project-title">🛒 淘宝：认购LED灯 (22.6元)</div>
                         <div class="project-desc">请登录后进入链接，备注吉祥码</div>
                         <div style="font-size:0.8rem; color:#888;">当前已被选择: <span id="count-p1">0</span> 次</div>
                     </a>
-                    <!-- 京东模拟项目 -->
                     <a href="https://www.jd.com" target="_blank" class="project-card" onclick="trackClick('p2')">
                         <div class="project-title">🛒 京东：模拟物资资助 (测试用)</div>
                         <div class="project-desc">点击跳转京东首页 (模拟链接)</div>
@@ -275,7 +157,6 @@
                     </a>
                 </div>
             </div>
-            <!-- 底部地址显示栏 -->
             <div id="address-panel" onclick="copyAddress()">
                 <div class="address-content" id="address-text"></div>
                 <span class="copy-hint">👆 点击此处复制全部信息</span>
@@ -287,20 +168,20 @@
         // ==========================================
         // 模块一：功能逻辑
         // ==========================================
-        // 1. 吉祥码生成 (引用第二个文件的复杂逻辑)
         function generateCode() {
             const suffix = document.getElementById('idSuffix').value.trim().toUpperCase();
             const resultBox = document.getElementById('resultBox');
             const tip = document.getElementById('tip');
+            
             if (suffix.length !== 3) {
                 alert("请输入准确的3位字符（数字或X）！");
                 return;
             }
+            
             // --- 复杂生成逻辑开始 ---
             let randomNums = '';
-            for (let i = 0; i < 3; i++) {
-                randomNums += Math.floor(Math.random() * 10);
-            }
+            for (let i = 0; i < 3; i++) randomNums += Math.floor(Math.random() * 10);
+            
             let suffixArray = suffix.split('');
             for (let i = suffixArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -308,51 +189,35 @@
             }
             const shuffledSuffix = suffixArray.join('');
             const allNums = randomNums + shuffledSuffix;
+            
             const letters = ['A', 'M', 'T', 'F'];
             let distribution = [0, 0, 0, 0];
-            for (let i = 0; i < 6; i++) {
-                let box = Math.floor(Math.random() * 4);
-                distribution[box]++;
-            }
+            for (let i = 0; i < 6; i++) distribution[Math.floor(Math.random() * 4)]++;
+            
             let finalStr = '', numIndex = 0;
             for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < distribution[i]; j++) {
-                    finalStr += allNums[numIndex++];
-                }
+                for (let j = 0; j < distribution[i]; j++) finalStr += allNums[numIndex++];
                 finalStr += letters[i];
             }
-            while (numIndex < 6) {
-                finalStr += allNums[numIndex++];
-            }
-            const finalCode = `无相布施者${finalStr}`;
+            while (numIndex < 6) finalStr += allNums[numIndex++];
+            
+            // 🌟 核心修改：直接在生成时加上 #
+            const finalCode = `#无相布施者${finalStr}`;
             // --- 复杂生成逻辑结束 ---
 
-            // 🌟 修改：用 span 包裹吉祥码，并应用蓝色样式
+            // 网页上展示吉祥码（应用蓝色样式）
             resultBox.innerHTML = `<span class="lucky-code">${finalCode}</span>`;
             resultBox.style.display = 'block';
             tip.style.display = 'none';
 
-            // 复制到剪贴板并保存到本地
+            // 自动复制到剪贴板并保存到本地
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(finalCode).then(() => {
                     tip.style.display = 'block';
-                    // 将吉祥码保存到本地存储，供支付页读取
                     localStorage.setItem('wuxiangLuckyCode', finalCode);
-                }).catch(err => {
-                    console.error('复制失败', err);
-                });
+                }).catch(err => console.error('复制失败', err));
             }
-
-            // 🌟 新增：监听复制事件，自动在吉祥码前加 #
-            document.addEventListener('copy', function(e) {
-                const selection = window.getSelection().toString();
-                // 如果选中的文本正好是吉祥码，自动在前面加上 #
-                if (selection === finalCode) {
-                    e.clipboardData.setData('text/plain', '#' + selection);
-                    e.preventDefault(); // 阻止默认的纯文本复制
-                }
-            });
-        } // 正确关闭 generateCode 函数
+        }
 
         // 2. 功德金测算
         let minVal = 1, maxVal = 50;
@@ -366,22 +231,15 @@
             resetMerit();
         }
         function calculateMerit() {
-            if(attempts >= 3) {
-                alert("测算次数已用完，请凭心选择。");
-                return;
-            }
+            if(attempts >= 3) { alert("测算次数已用完，请凭心选择。"); return; }
             const amount = Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
             history.push(amount);
             attempts++;
             const avg = Math.round(history.reduce((a,b)=>a+b,0) / history.length);
             const resultDiv = document.getElementById('meritResult');
             let html = `<div>第 ${attempts} 次测算：¥ ${amount}</div>`;
-            if(attempts > 1) {
-                html += `<div style="font-size:0.9rem; margin-top:5px; color:#666;">当前平均值参考：¥ ${avg}</div>`;
-            }
-            if(attempts === 3) {
-                html += `<div style="color:red; font-size:0.8rem; margin-top:5px;">测算结束，请随喜功德</div>`;
-            }
+            if(attempts > 1) html += `<div style="font-size:0.9rem; margin-top:5px; color:#666;">当前平均值参考：¥ ${avg}</div>`;
+            if(attempts === 3) html += `<div style="color:red; font-size:0.8rem; margin-top:5px;">测算结束，请随喜功德</div>`;
             resultDiv.innerHTML = html;
         }
         function resetMerit() {
@@ -394,40 +252,28 @@
         // 模块二：功能逻辑
         // ==========================================
         const SHIPPING_INFO = "收件人：李居士2\n电话：13020180119\n地址：江西省九江市濂溪区赛阳镇东林村5组东林逸居旁";
-        // 1. 显示地址栏
         function showAddressPanel() {
             const panel = document.getElementById('address-panel');
             const content = document.getElementById('address-text');
             content.innerHTML = SHIPPING_INFO.replace(/\n/g, '<br>');
             panel.style.display = 'block';
-            // 平滑滚动到底部
-            setTimeout(() => {
-                panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+            setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
-        // 2. 复制地址
         function copyAddress() {
             copyToClipboard(SHIPPING_INFO);
             const hint = document.querySelector('.copy-hint');
             const original = hint.innerText;
             hint.innerText = "✅ 复制成功！请去购物网站粘贴";
             hint.style.color = "#07c160";
-            setTimeout(() => {
-                hint.innerText = original;
-                hint.style.color = "#888";
-            }, 5500);
+            setTimeout(() => { hint.innerText = original; hint.style.color = "#888"; }, 5500);
         }
-        // 3. 统计点击 (模拟)
         function trackClick(id) {
             const countSpan = document.getElementById('count-' + id);
-            let count = parseInt(countSpan.innerText) + 1;
-            countSpan.innerText = count;
+            countSpan.innerText = parseInt(countSpan.innerText) + 1;
         }
-        // 通用复制函数
         function copyToClipboard(text) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text);
-            } else {
+            if (navigator.clipboard) { navigator.clipboard.writeText(text); } 
+            else {
                 const ta = document.createElement('textarea');
                 ta.value = text;
                 document.body.appendChild(ta);
